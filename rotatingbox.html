@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset = utf-8>
+		
+		<title>three.js demo</title>
+		
+		<style>
+		
+			body {
+				margin: 0;
+			}
+			
+			canvas {
+				width: 100%;
+				height: 100%;
+			}
+			
+		</style>
+		
+	</head>
+	
+	<body>
+	
+		<script src = "js/three.js"></script>
+		
+		<script>
+			
+			var scene = new THREE.Scene(); 
+			// creates a 3d scene
+			var camera = new THREE.PerspectiveCamera( 75, 
+													  window.innerWidth / window.innerHeight,
+													  0.1,
+													  1000 ) 
+													  // sets up a perspective camera
+													  // (field of view, aspect ratio, near clipping plane, far clipping plane)
+			var renderer = new THREE.WebGLRenderer(); 
+			// sets WebGL as the renderer
+			renderer.setSize( window.innerWidth, window.innerHeight ); 
+			// sets size for rendering of our appendChild
+			document.body.appendChild( renderer.domElement ); 
+			// adds the renderer to the <body> html element
+													  
+			var geometry = new THREE.BoxGeometry( 1, 1, 1 ); 
+			// geometry: an object that contains the geometric elements of a particular shape
+			var material = new THREE.MeshBasicMaterial ( { color: 0x0800000 } )
+			// material: an object that contains texture data that is used to color a mesh
+			var cube = new THREE.Mesh( geometry, material );
+			// mesh: an object that takes in a geometry and a material value to 
+			// create a viewable 3d shape 
+			
+			scene.add( cube );
+			// adds a mesh to default coordinates (0,0,0)
+			
+			camera.position.z = 5;
+			
+			
+			// RENDER LOOP
+			
+			function render() {
+				cube.rotation.x += 0.1;
+				cube.rotation.y += 0.1;
+				requestAnimationFrame( render );
+				renderer.render( scene, camera );
+			}
+			// loop that asks the renderer to draw the scene 60 times
+			// per second
+			render();
+			
+		</script>
+		
+	</body>
+	
+</html>
